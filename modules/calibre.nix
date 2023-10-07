@@ -20,5 +20,9 @@ in {
     libraries = [
       library
     ];
+    auth = {
+      enable = true;
+      userDb = /lib/var/calibre-server/users.sqlite;
+    };
   };
 }
