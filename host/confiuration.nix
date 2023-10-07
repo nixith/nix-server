@@ -5,7 +5,13 @@
   user,
   sshKeys,
   ...
-}: {
+}: let
+  update =
+    pkgs.writeShellScriptBin "update"
+    ''
+      ${pkgs.sudo} ${pkgs.nixos-reuild} switch --flake github:bromine1/nix-server#server
+    '';
+in {
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -25,6 +31,9 @@
     auto-cpufreq
     curl
     coreutils
+    gh
+    fish
+    update
   ];
 
   services = {
