@@ -57,8 +57,9 @@
     sshKeys = lib.remove [] (builtins.split "\n" (builtins.readFile inputs.sshKeys));
 
     serviceModules = [
-    ./modules/tailscale.nix 
-    #./modules/calibre.nix];
+      ./modules/tailscale.nix
+      #./modules/calibre.nix
+    ];
   in {
     nixosConfigurations = {
       server = nixpkgs.lib.nixosSystem {
