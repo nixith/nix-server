@@ -1,20 +1,24 @@
-{config, ...}: {
+{config, ...}: let
+  library = /var/lib/calibreLibrary;
+  libraryGroup "library";
+in {
   services.calibre-web = {
     enable = true;
     listen = {
       ip = "0.0.0.0";
     };
+    group = libraryGroup;
     options = {
-      calibreLibrary = /home/ryan/CalibreLibrary;
+      calibreLibrary = library;
       enableKepubify = true;
       enableBookUploading = true;
     };
   };
   services.calibre-server = {
     enable = true;
-    user = "ryan";
+    group = libraryGroup;
     libraries = [
-      /home/ryan/CalibreLibrary
+      library
     ];
   };
 }
