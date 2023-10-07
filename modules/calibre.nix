@@ -1,6 +1,6 @@
 {config, ...}: let
   library = /var/lib/calibreLibrary;
-  libraryGroup "library";
+  libraryGroup = "library";
 in {
   services.calibre-web = {
     enable = true;
