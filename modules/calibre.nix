@@ -17,9 +17,6 @@ in {
   services.calibre-server = {
     enable = true;
     group = libraryGroup;
-    libraries = [
-      library
-    ];
     auth = {
       enable = true;
       userDb = /lib/var/calibre-server/users.sqlite;
