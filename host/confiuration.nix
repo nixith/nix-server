@@ -9,7 +9,7 @@
   update =
     pkgs.writeShellScriptBin "update"
     ''
-      ${pkgs.sudo} ${pkgs.nixos-reuild} switch --flake github:bromine1/nix-server#server
+      ${pkgs.sudo} nixos-reuild switch --flake github:bromine1/nix-server#server
     '';
 in {
   # Use the systemd-boot EFI boot loader.
