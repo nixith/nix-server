@@ -5,11 +5,12 @@ in {
   services.calibre-web = {
     inherit group;
     enable = true;
+    user = "calibre";
     listen = {
       ip = "0.0.0.0";
     };
     options = {
-      calibreLibrary = library;
+      #calibreLibrary = library; #set imperatively due to nix copying paths
       enableKepubify = true;
       enableBookUploading = true;
     };
@@ -17,6 +18,7 @@ in {
   services.calibre-server = {
     enable = true;
     inherit group;
+    user = "calibre";
     auth = {
       enable = true;
       userDb = /var/lib/calibre-server/users.sqlite;
