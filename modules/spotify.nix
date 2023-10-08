@@ -12,6 +12,7 @@ in {
     group = "spotifyd";
     mode = "0440";
   };
+  users.extraGroups."spotifyd" = {};
   services.spotifyd = {
     enable = true;
     settings = {
