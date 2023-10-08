@@ -23,7 +23,7 @@ in {
         backend = "pulseaudio";
         bitrate = 320;
         cache_path = "cache_directory";
-        dbus_type = "session";
+        dbus_type = "system";
         device = "default";
         device_name = "patchouli";
         device_type = "computer";
