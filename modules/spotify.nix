@@ -1,14 +1,14 @@
-{...}: let
+{config, ...}: let
   usernamePath = "/var/lib/spotifyd/username";
   passwordPath = "/var/lib/spotifyd/password";
 in {
   sops.secrets."spotifyd/password" = {
     path = passwordPath;
-    owner = "spotifyd";
+    group = "spotifyd";
   };
   sops.secrets."spotifyd/username" = {
     path = usernamePath;
-    owner = "spotifyd";
+    group = "spotifyd";
   };
   services.spotifyd = {
     enable = true;
