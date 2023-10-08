@@ -59,7 +59,6 @@
     serviceModules = [
       ./modules/tailscale.nix
       ./modules/calibre.nix
-      ./modules/spotify.nix
     ];
   in {
     nixosConfigurations = {
