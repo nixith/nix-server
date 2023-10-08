@@ -68,10 +68,11 @@
           [
             ./host/confiuration.nix
             ./host/hardware-confiuration.nix
+            ./host/hostModules/secrets.nix
           ]
           ++ serviceModules;
 
-        specialArgs = {inherit inputs user sshKeys pkgs;};
+        specialArgs = {inherit inputs user sshKeys pkgs sops-nix;};
       };
     };
   };
