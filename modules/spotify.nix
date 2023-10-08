@@ -5,10 +5,12 @@ in {
   sops.secrets."spotifyd/password" = {
     path = passwordPath;
     group = "spotifyd";
+    mode = "0440";
   };
   sops.secrets."spotifyd/username" = {
     path = usernamePath;
     group = "spotifyd";
+    mode = "0440";
   };
   services.spotifyd = {
     enable = true;
@@ -16,7 +18,7 @@ in {
       global = {
         audio_format = "S16";
         autoplay = true;
-        username = "cat ${usernamePath}";
+        username_cmd = "cat ${usernamePath}";
         password_cmd = "cat ${passwordPath}";
         backend = "pulseaudio";
         bitrate = 320;
