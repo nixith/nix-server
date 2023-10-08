@@ -82,7 +82,7 @@ in {
   #Define a user account.
   users.users.${user} = {
     isNormalUser = true;
-    extraGroups = ["wheel" "networkmanager"]; # Enable ‘sudo’ for the user.
+    extraGroups = ["wheel" "networkmanager" "library"]; # Enable ‘sudo’ for the user.
     hashedPassword = "$6$8a7Hgdgv5zOp6w5u$Kro/9wAni3mtXOGhc8bWxYCa8aijTqowdA1lXucHiLxtct/9ZGAr9bzwePv5cfjnQSUG2YOvJOMYpVF0j75G91"; #TODO fix with sops-nix
     openssh.authorizedKeys.keys = sshKeys;
   };
@@ -98,6 +98,7 @@ in {
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
+  services.openssh.settings.X11Forwarding = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
