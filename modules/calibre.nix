@@ -29,5 +29,7 @@ in {
     home = "/var/lib/calibre-server";
     group = "library";
     createHome = true;
+    isSystemUser = true;
+    homeMode = "776";
   };
 }
