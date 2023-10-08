@@ -24,4 +24,10 @@ in {
       userDb = /var/lib/calibre-server/users.sqlite;
     };
   };
+
+  users.extraUsers."calibre" = {
+    home = "/var/lib/calibre-server";
+    group = "library";
+    createHome = true;
+  };
 }
