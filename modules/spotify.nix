@@ -4,9 +4,11 @@
 in {
   sops.secrets."spotifyd/password" = {
     path = passwordPath;
+    owner = "spotifyd";
   };
   sops.secrets."spotifyd/username" = {
     path = usernamePath;
+    owner = "spotifyd";
   };
   services.spotifyd = {
     enable = true;
