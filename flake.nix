@@ -66,6 +66,7 @@
         inherit system;
         modules =
           [
+            sops-nix.nixosModules.sops
             ./host/confiuration.nix
             ./host/hardware-confiuration.nix
             ./host/hostModules/secrets.nix

@@ -1,5 +1,8 @@
-{sops-nix, ...}: {
-  imports = [sops-nix.nixosModules.sops];
+{
+  sops-nix,
+  user,
+  ...
+}: {
   sops.defaultSopsFile = ../../secrets/services.yaml;
-  sops.secrets."spotifyd/username" = {};
+  sops.age.sshKeyPaths = ["/home/${user}/.ssh/ed25519"];
 }
