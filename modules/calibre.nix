@@ -1,13 +1,13 @@
 {config, ...}: let
-  library = /var/lib/calibreLibrary;
-  libraryGroup = "library";
+  library = /var/lib/calibre-server;
+  group = "library";
 in {
   services.calibre-web = {
+    inherit group;
     enable = true;
     listen = {
       ip = "0.0.0.0";
     };
-    group = libraryGroup;
     options = {
       calibreLibrary = library;
       enableKepubify = true;
@@ -16,10 +16,10 @@ in {
   };
   services.calibre-server = {
     enable = true;
-    group = libraryGroup;
+    inherit group;
     auth = {
       enable = true;
-      userDb = /lib/var/calibre-server/users.sqlite;
+      userDb = /var/lib/calibre-server/users.sqlite;
     };
   };
 }
