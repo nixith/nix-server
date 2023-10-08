@@ -1,4 +1,4 @@
-  services.spotifyd = {config, ...}: let
+{config, ...}: let
   usernamePath = "/var/lib/spotifyd/username";
   passwordPath = "/var/lib/spotifyd/password";
 in {
@@ -17,7 +17,7 @@ in {
     "password:${passwordPath}"
   ];
 
-services.spotifyd = {
+  services.spotifyd = {
     enable = true;
     settings = {
       global = {
