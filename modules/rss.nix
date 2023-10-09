@@ -6,6 +6,6 @@
     passwordFile = config.sops.secrets.freshrss.path;
     baseUrl = "https://patchouli:80";
     enable = true;
-    defaultUser = "nix";
+    defaultUser = "admin";
   };
 }
