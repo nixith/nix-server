@@ -8,4 +8,9 @@
     enable = true;
     defaultUser = "admin";
   };
+
+  services.rss-bridge = {
+    enable = true;
+    whitelist = ["*"];
+  };
 }
