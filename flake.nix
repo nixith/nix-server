@@ -60,7 +60,7 @@
       ./modules/tailscale.nix
       ./modules/calibre.nix
       ./modules/rss.nix
-      ./modules/caddy.nix
+      ./modules/nginx.nix
       #./modules/dns.nix
     ];
   in {

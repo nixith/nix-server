@@ -11,7 +11,7 @@
   services.nginx.virtualHosts."freshrss".listen = [
     {
       port = 2020;
-      addr = "0.0.0.0";
+      addr = "127.0.0.1";
     }
   ];
 
@@ -22,7 +22,7 @@
   services.nginx.virtualHosts."rss-bridge".listen = [
     {
       port = 2021;
-      addr = "0.0.0.0";
+      addr = "127.0.0.1";
     }
   ];
 }
