@@ -4,7 +4,8 @@
   };
   services.freshrss = {
     passwordFile = config.sops.secrets.freshrss.path;
-    baseUrl = "https://patchouli:2120";
+    baseUrl = "https://patchouli:80";
     enable = true;
+    defaultUser = "nix";
   };
 }
