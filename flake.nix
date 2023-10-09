@@ -59,7 +59,7 @@
     serviceModules = [
       ./modules/tailscale.nix
       ./modules/calibre.nix
-      ./modules/freshrss.nix
+      ./modules/rss.nix
     ];
   in {
     nixosConfigurations = {
