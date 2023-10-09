@@ -35,7 +35,7 @@ in {
 
   services.nginx.virtualHosts = {
     "calibre.*" = {
-      proxyPass = "https://127.0.0.1:8083";
+      locations."/".proxyPass = "http://0.0.0.0:8083";
     };
   };
 }
