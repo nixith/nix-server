@@ -32,4 +32,10 @@ in {
     isSystemUser = true;
     homeMode = "776";
   };
+
+  services.nginx.virtualHosts = {
+    "calibre.*" = {
+      proxyPass = "https://127.0.0.1:8083";
+    };
+  };
 }
