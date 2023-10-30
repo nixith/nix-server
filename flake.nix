@@ -73,6 +73,7 @@
             ./host/confiuration.nix
             ./host/hardware-confiuration.nix
             ./host/hostModules/secrets.nix
+            ./host/hostModules/autoUpgrade.nix
           ]
           ++ serviceModules;
 
