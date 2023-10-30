@@ -2,6 +2,7 @@
   library = /var/lib/calibre-server;
   group = "library";
 in {
+  users.groups.library = {};
   services.calibre-web = {
     inherit group;
     enable = true;

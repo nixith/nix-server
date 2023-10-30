@@ -61,7 +61,7 @@
       ./modules/calibre.nix
       ./modules/rss.nix
       ./modules/nginx.nix
-      #./modules/dns.nix
+      ./modules/dns.nix
     ];
   in {
     nixosConfigurations = {
