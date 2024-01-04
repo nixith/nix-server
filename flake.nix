@@ -58,10 +58,11 @@
 
     serviceModules = [
       ./modules/tailscale.nix
-      ./modules/calibre.nix
+      #./modules/calibre.nix #leave disabled until proxy buisness is figured out
       ./modules/rss.nix
-      ./modules/nginx.nix
-      ./modules/dns.nix
+      #./modules/nginx.nix
+      ./modules/caddy.nix
+      #./modules/dns.nix
     ];
   in {
     nixosConfigurations = {
