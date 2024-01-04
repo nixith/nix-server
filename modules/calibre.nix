@@ -8,7 +8,7 @@ in {
     enable = true;
     user = "calibre";
     listen = {
-      ip = "0.0.0.0";
+      ip = "127.0.0.1";
     };
     options = {
       #calibreLibrary = library; #set imperatively due to nix copying paths
@@ -16,15 +16,17 @@ in {
       enableBookUploading = true;
     };
   };
-  services.calibre-server = {
-    enable = true;
-    inherit group;
-    user = "calibre";
-    auth = {
-      enable = true;
-      userDb = /var/lib/calibre-server/users.sqlite;
-    };
-  };
+  # TODO: make nixpkgs commit to expose [url prefixes](https://manual.calibre-ebook.com/server.html#id12)
+  # services.calibre-server = {
+  #   enable = true;
+  #   inherit group;
+  #   user = "calibre";
+  #   auth = {
+  #     enable = true;
+  #     userDb = /var/lib/calibre-server/users.sqlite;
+  #   };
+  #   port = 8082;
+  # };
 
   users.extraUsers."calibre" = {
     home = "/var/lib/calibre-server";
@@ -32,11 +34,5 @@ in {
     createHome = true;
     isSystemUser = true;
     homeMode = "776";
-  };
-
-  services.nginx.virtualHosts = {
-    "calibre.*" = {
-      locations."/".proxyPass = "http://0.0.0.0:8083";
-    };
   };
 }
