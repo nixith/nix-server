@@ -3,6 +3,7 @@
     tailscale = {
       useRoutingFeatures = "both";
       enable = true;
+      permitCertUid = "caddy";
     };
   };
   networking.firewall = {
