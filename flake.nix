@@ -83,7 +83,7 @@
         specialArgs = {inherit inputs user sops-nix self pkgs system;};
       };
       oracleServer = nixpkgs.lib.nixosSystem rec {
-        system = "x86_64-linux";
+        system = "aarch64-linux";
         pkgs = nixpkgs.legacyPackages.${system};
 
         modules =
