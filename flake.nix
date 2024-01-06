@@ -50,9 +50,6 @@
   } @ inputs: let
     user = "ryan";
 
-    system = "x86_64-linux";
-    pkgs = nixpkgs.legacyPackages."${system}";
-
     lib = pkgs.lib;
 
     sshKeys = lib.remove [] (builtins.split "\n" (builtins.readFile inputs.sshKeys));
@@ -66,21 +63,38 @@
       #./modules/adguard.nix
       ./modules/dns.nix
     ];
+    commonHardware = [
+      sops-nix.nixosModules.sops
+      ./host/confiuration.nix
+      ./host/hostModules/secrets.nix
+      ./host/hostModules/autoUpgrade.nix
+    ];
+    specialArgs = {inherit inputs user sshKeys pkgs sops-nix self system;};
   in {
     nixosConfigurations = {
       server = nixpkgs.lib.nixosSystem {
-        inherit system;
+        system = "x86_64-linux";
+        pkgs = nixpkgs.legacyPackages.${system};
         modules =
           [
-            sops-nix.nixosModules.sops
-            ./host/confiuration.nix
             ./host/hardware-confiuration.nix
-            ./host/hostModules/secrets.nix
-            ./host/hostModules/autoUpgrade.nix
           ]
-          ++ serviceModules;
+          ++ serviceModules
+          ++ commonHardware;
 
-        specialArgs = {inherit inputs user sshKeys pkgs sops-nix self system;};
+        inherit specialArgs;
+      };
+      oracleServer = nixpkgs.lib.nixosSystem {
+        system = "aarch64-linux";
+        pkgs = nixpkgs.legacyPackages.${system};
+        modules =
+          [
+            ./host/oracle-hardware-configuration.nix
+          ]
+          ++ serviceModules
+          ++ commonHardware;
+
+        inherit specialArgs;
       };
     };
     #packages.${system}.caddy = pkgs.callPackage ./packages/myCaddy.nix { };
