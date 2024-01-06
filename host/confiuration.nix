@@ -88,6 +88,7 @@ in {
       auto-optimise-store = true; # Optimise symlinks
       experimental-features = ["nix-command" "flakes"];
       trusted-users = ["root" "@wheel"];
+      sandbox = false;
     };
     gc = {
       automatic = true;
