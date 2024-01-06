@@ -4,6 +4,7 @@
       useRoutingFeatures = "both";
       enable = true;
       permitCertUid = "caddy";
+      extraUpFlags = ["--accept-dns=false"];
     };
   };
   networking.firewall = {
