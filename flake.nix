@@ -25,6 +25,7 @@
     auto-optimise-store = true;
     allowUnfree = true;
     accept-flake-config = true;
+    sandbox = false;
   };
 
   inputs = {
@@ -62,7 +63,8 @@
       ./modules/rss.nix
       #./modules/nginx.nix
       ./modules/caddy.nix
-      #./modules/dns.nix
+      #./modules/adguard.nix
+      ./modules/dns.nix
     ];
   in {
     nixosConfigurations = {
@@ -78,8 +80,9 @@
           ]
           ++ serviceModules;
 
-        specialArgs = {inherit inputs user sshKeys pkgs sops-nix;};
+        specialArgs = {inherit inputs user sshKeys pkgs sops-nix self system;};
       };
     };
+    #packages.${system}.caddy = pkgs.callPackage ./packages/myCaddy.nix { };
   };
 }
