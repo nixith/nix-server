@@ -76,6 +76,7 @@
         modules =
           [
             ./host/hardware-confiuration.nix
+            {programs.thermald.enable = true;}
           ]
           ++ serviceModules
           ++ commonHardware;

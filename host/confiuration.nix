@@ -27,7 +27,6 @@ in {
     # To manage the actual user configuration
     neovim
     git
-    thermald
     auto-cpufreq
     curl
     coreutils
@@ -55,7 +54,6 @@ in {
 
   services = {
     auto-cpufreq.enable = true;
-    thermald.enable = true;
   };
 
   i18n.defaultLocale = "en_US.UTF-8";
@@ -106,11 +104,6 @@ in {
   };
 
   # mount filesystems correctly
-  fileSystems = {
-    "/".options = ["compress=zstd"];
-    "/home".options = ["compress=zstd"];
-    "/nix".options = ["compress=zstd" "noatime"];
-  };
 
   # List services that you want to enable:
 
