@@ -1,9 +1,9 @@
 {
   config,
   lib,
+  inputs,
   pkgs,
   user,
-  sshKeys,
   ...
 }: let
   update =
@@ -102,7 +102,7 @@ in {
     isNormalUser = true;
     extraGroups = ["wheel" "networkmanager" "library"]; # Enable ‘sudo’ for the user.
     hashedPassword = "$6$8a7Hgdgv5zOp6w5u$Kro/9wAni3mtXOGhc8bWxYCa8aijTqowdA1lXucHiLxtct/9ZGAr9bzwePv5cfjnQSUG2YOvJOMYpVF0j75G91"; #TODO fix with sops-nix
-    openssh.authorizedKeys.keys = sshKeys;
+    openssh.authorizedKeys.keys = pkgs.lib.remove [] (builtins.split "\n" (builtins.readFile inputs.sshKeys));
   };
 
   # mount filesystems correctly

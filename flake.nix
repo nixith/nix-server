@@ -73,7 +73,6 @@
         system = "x86_64-linux";
         pkgs = nixpkgs.legacyPackages.${system};
 
-        sshKeys = pkgs.lib.remove [] (builtins.split "\n" (builtins.readFile inputs.sshKeys));
         modules =
           [
             ./host/hardware-confiuration.nix
@@ -87,7 +86,6 @@
         system = "x86_64-linux";
         pkgs = nixpkgs.legacyPackages.${system};
 
-        sshKeys = pkgs.lib.remove [] (builtins.split "\n" (builtins.readFile inputs.sshKeys));
         modules =
           [
             ./host/oracle-hardware-configuration.nix
