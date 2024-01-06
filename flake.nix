@@ -39,7 +39,7 @@
       url = "https://github.com/bromine1.keys";
       flake = false;
     };
-    inputs.flake-utils.url = "github:numtide/flake-utils";
+    flake-utils.url = "github:numtide/flake-utils";
   };
 
   outputs = {
