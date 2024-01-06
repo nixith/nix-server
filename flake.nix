@@ -39,64 +39,67 @@
       url = "https://github.com/bromine1.keys";
       flake = false;
     };
+    inputs.flake-utils.url = "github:numtide/flake-utils";
   };
 
   outputs = {
     self,
     nixpkgs,
     sops-nix,
+    flake-utils,
     nixos-hardware,
     ...
-  } @ inputs: let
-    user = "ryan";
+  } @ inputs:
+    flake-utils.lib.eachDefaultSystem (system: let
+      user = "ryan";
 
-    lib = pkgs.lib;
+      pkgs = nixpkgs.legacyPackages.${system};
 
-    sshKeys = lib.remove [] (builtins.split "\n" (builtins.readFile inputs.sshKeys));
+      lib = pkgs.lib;
 
-    serviceModules = [
-      ./modules/tailscale.nix
-      #./modules/calibre.nix #leave disabled until proxy buisness is figured out
-      ./modules/rss.nix
-      #./modules/nginx.nix
-      ./modules/caddy.nix
-      #./modules/adguard.nix
-      ./modules/dns.nix
-    ];
-    commonHardware = [
-      sops-nix.nixosModules.sops
-      ./host/confiuration.nix
-      ./host/hostModules/secrets.nix
-      ./host/hostModules/autoUpgrade.nix
-    ];
-    specialArgs = {inherit inputs user sshKeys pkgs sops-nix self system;};
-  in {
-    nixosConfigurations = {
-      server = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        pkgs = nixpkgs.legacyPackages.${system};
-        modules =
-          [
-            ./host/hardware-confiuration.nix
-          ]
-          ++ serviceModules
-          ++ commonHardware;
+      sshKeys = lib.remove [] (builtins.split "\n" (builtins.readFile inputs.sshKeys));
 
-        inherit specialArgs;
+      serviceModules = [
+        ./modules/tailscale.nix
+        #./modules/calibre.nix #leave disabled until proxy buisness is figured out
+        ./modules/rss.nix
+        #./modules/nginx.nix
+        ./modules/caddy.nix
+        #./modules/adguard.nix
+        ./modules/dns.nix
+      ];
+      commonHardware = [
+        sops-nix.nixosModules.sops
+        ./host/confiuration.nix
+        ./host/hostModules/secrets.nix
+        ./host/hostModules/autoUpgrade.nix
+      ];
+      specialArgs = {inherit inputs user sshKeys pkgs sops-nix self system;};
+    in {
+      nixosConfigurations = {
+        server = nixpkgs.lib.nixosSystem {
+          inherit system;
+          modules =
+            [
+              ./host/hardware-confiuration.nix
+            ]
+            ++ serviceModules
+            ++ commonHardware;
+
+          inherit specialArgs;
+        };
+        oracleServer = nixpkgs.lib.nixosSystem {
+          inherit system;
+          modules =
+            [
+              ./host/oracle-hardware-configuration.nix
+            ]
+            ++ serviceModules
+            ++ commonHardware;
+
+          inherit specialArgs;
+        };
       };
-      oracleServer = nixpkgs.lib.nixosSystem {
-        system = "aarch64-linux";
-        pkgs = nixpkgs.legacyPackages.${system};
-        modules =
-          [
-            ./host/oracle-hardware-configuration.nix
-          ]
-          ++ serviceModules
-          ++ commonHardware;
-
-        inherit specialArgs;
-      };
-    };
-    #packages.${system}.caddy = pkgs.callPackage ./packages/myCaddy.nix { };
-  };
+      #packages.${system}.caddy = pkgs.callPackage ./packages/myCaddy.nix { };
+    });
 }
