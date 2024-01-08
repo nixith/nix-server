@@ -54,10 +54,11 @@
     serviceModules = [
       ./modules/tailscale.nix
       #./modules/calibre.nix #leave disabled until proxy buisness is figured out
-      ./modules/rss.nix
+      #./modules/rss.nix
       #./modules/nginx.nix
-      ./modules/caddy.nix
+      #./modules/caddy.nix
       #./modules/adguard.nix
+      ./containers/rss.nix
       ./modules/dns.nix
     ];
     commonHardware = [
@@ -76,7 +77,7 @@
         modules =
           [
             ./host/hardware-confiuration.nix
-            {programs.thermald.enable = true;}
+            {services.thermald.enable = true;}
           ]
           ++ serviceModules
           ++ commonHardware;
