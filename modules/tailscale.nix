@@ -5,7 +5,7 @@
       enable = true;
       openFirewall = true;
       permitCertUid = "caddy";
-      extraUpFlags = ["--accept-dns=false"];
+      extraUpFlags = ["--accept-dns=false" "--ssh" "--accept-risk=lose-ssh"];
     };
   };
   networking.firewall = {
