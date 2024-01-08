@@ -3,7 +3,8 @@
     enable = false;
     extraConfig = ''
       ReadEtcHosts=yes
-      DNSStubListenerExtra=100.88.114.3
+      #DNSStubListenerExtra=100.88.114.3
+      DNSStubListener=no
     '';
   };
 
@@ -51,7 +52,9 @@
         default = [
           #"100.100.100.100" #tailscale
           "1.1.1.1"
+          "1.0.0.1"
           "8.8.8.8"
+          "9.9.9.9"
         ];
       };
       upstreamTimeout = "2s";
@@ -60,13 +63,17 @@
       customDNS = {
         customTTL = "1h";
         filterUnmappedTypes = true;
-        # rewrite = {
-        #   "calibre.centaur-stargazer.ts.net" = "patchouli.centaur-stargazer.ts.net"; #interferes with tailscale ssl certs with caddy
-        # };
+        rewrite = {
+          "tsn" = "ts.net";
+          #   "calibre.centaur-stargazer.ts.net" = "patchouli.centaur-stargazer.ts.net"; #interferes with tailscale ssl certs with caddy
+        };
         #rewrite = {"ts.net" = "centaur-stargazer.ts.net";}; #interferes with tailscale ssl certs with caddy
         mapping = {
           "patchouli.centaur-stargazer.ts.net" = "100.88.114.3";
-          "calibre.centaur-stargazer.ts.net" = "100.88.114.3";
+          "rss-bridge.centaur-stargazer.ts.net" = "100.103.49.37";
+          #"patchouli" = "100.88.114.3";
+          "calibre.ts.net" = "100.88.114.3";
+          "nix.dev" = "100.88.114.3";
         };
       };
       blocking = {
@@ -142,5 +149,6 @@
     #dhcpcd.extraConfig = "nohook resolv.conf";
     # If using NetworkManager:
     networkmanager.dns = "none";
+    #resolvconf.useLocalResolver = true;
   };
 }
