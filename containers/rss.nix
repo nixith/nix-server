@@ -30,7 +30,9 @@ in {
     enableTun = true;
     autoStart = true;
     # maybe use specialArgs to access secrets? Not sure if that's better or worse than rn
-    config = {
+    config = let
+      port = "8089";
+    in {
       imports = [
         ./baseConfig.nix
       ];
@@ -47,7 +49,7 @@ in {
         config = {
           CLEANUP_FREQUENCY = "48";
           CREATE_ADMIN = "1";
-          LISTEN_ADDR = "127.0.0.1:8080";
+          LISTEN_ADDR = "127.0.0.1:${port}";
           BASE_URL = "https://rss.centaur-stargazer.ts.net/";
         };
         # Service End
@@ -59,10 +61,29 @@ in {
         virtualHosts."${host}.centaur-stargazer.ts.net" = {
           #
           extraConfig = ''
-            reverse_proxy localhost:8080
+            reverse_proxy localhost:${port}
           '';
           #hostName = "freshrss";
         };
+        virtualHosts."rss.nixith.dev" = {
+          extraConfig = ''
+            redir ${host}.centaur-stargazer.ts.net{uri}
+          '';
+        };
+      };
+
+      # tailscale funnel system service
+      systemd.services.tailscale-funnel = {
+        after = ["tailscale-autoconnect.service"];
+        wants = ["tailscale-autoconnect.service"];
+        wantedBy = ["multi-user.target"];
+        serviceConfig = {
+          Type = "simple";
+        };
+        # There is probably a better way than sleeping here but it works
+        script = ''
+          sleep 5 && ${config.services.tailscale.package}/bin/tailscale funnel ${port}
+        '';
       };
     };
   };

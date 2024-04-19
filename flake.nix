@@ -53,6 +53,7 @@
 
     serviceModules = [
       ./modules/tailscale.nix
+      ./modules/unifi.nix
       #./modules/calibre.nix #leave disabled until proxy buisness is figured out
       #./modules/rss.nix
       #./modules/nginx.nix
@@ -72,7 +73,10 @@
     nixosConfigurations = {
       server = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
-        pkgs = nixpkgs.legacyPackages.${system};
+        pkgs = import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+        };
 
         modules =
           [

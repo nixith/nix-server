@@ -1,0 +1,3 @@
+{...}: {
+  systemd.services.rebuildOnBoot = {};
+}

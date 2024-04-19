@@ -69,11 +69,11 @@
         };
         #rewrite = {"ts.net" = "centaur-stargazer.ts.net";}; #interferes with tailscale ssl certs with caddy
         mapping = {
-          "patchouli.centaur-stargazer.ts.net" = "100.88.114.3";
-          "rss-bridge.centaur-stargazer.ts.net" = "100.103.49.37";
+          #"patchouli.centaur-stargazer.ts.net" = "100.88.114.3";
+          #"rss-bridge.centaur-stargazer.ts.net" = "100.103.49.37";
           #"patchouli" = "100.88.114.3";
-          "calibre.ts.net" = "100.88.114.3";
-          "nix.dev" = "100.88.114.3";
+          #"calibre.ts.net" = "100.88.114.3";
+          #"nix.dev" = "100.88.114.3";
         };
       };
       blocking = {
@@ -83,6 +83,10 @@
             "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
             "http://sysctl.org/cameleon/hosts"
             "https://s3.amazonaws.com/lists.disconnect.me/simple_tracking.txt"
+            "https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts"
+            "https://big.oisd.nl/domainswild"
+            "https://raw.githubusercontent.com/kboghdady/youTube_ads_4_pi-hole/master/youtubelist.txt"
+            "https://perflyst.github.io/PiHoleBlocklist/SmartTV.txt"
             "# inline definition with YAML literal block scalar style\n# hosts format\nsomeadsdomain.com\n"
           ];
           special = ["https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews/hosts"];
